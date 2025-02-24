@@ -24,17 +24,16 @@ namespace v1.Controllers.AuthController
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequestDto request)
         {
-            //var result = await _authService.RegisterAsync(request.Email, request.Password, request.Name);
-            //return result ? Ok("User registered successfully") : BadRequest("User registration failed");
-            return Ok();
+            var result = await _authService.RegisterAsync(request.Email, request.Password, request.Name);
+            return result ? Ok("User registered successfully") : BadRequest("User registration failed");
+            //return Ok();
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
         {
-            //var (success, token, errorMessage) = await _authService.LoginAsync(request.Email, request.Password);
-            //return success ? Ok(new { token }) : Unauthorized(new { message = errorMessage });
-            return Ok();
+            var (success, token, errorMessage) = await _authService.LoginAsync(request.Email, request.Password);
+            return success ? Ok(new { token }) : Unauthorized(new { message = errorMessage });
 
         }
 

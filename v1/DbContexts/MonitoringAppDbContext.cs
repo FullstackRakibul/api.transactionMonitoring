@@ -15,9 +15,7 @@ namespace v1.DbContexts
         }
 
         public DbSet<PublicData> PublicData { get; set; }
-        
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
-
         public DbSet<ApplicationRole> ApplicationRole { get; set; }
         
     }

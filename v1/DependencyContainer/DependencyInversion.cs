@@ -10,6 +10,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using v1.AuthHandler.Configuration;
+using v1.Repository.IRepository.IAuthRepository;
+using v1.Repository.AuthRepository;
+using v1.Services.IService.IAuthService;
+using v1.Services.AuthService;
+using v1.Services.IService.IAuthInterface;
 
 namespace v1.DependencyInversion
 {
@@ -18,7 +23,14 @@ namespace v1.DependencyInversion
 
         internal static void RegisterServices(IServiceCollection services)
         {
+            // repositories ...
             services.AddTransient <IPublicInterface ,PublicRepository>();
+            services.AddTransient<IApplicationUserInterface, ApplicationUserRepository>();
+
+
+            //services ...
+            services.AddScoped<IAuthServiceInterface, AuthService>();
+            services.AddScoped<ITokenServiceInterface, TokenService>();
 
 
             // Register Identity
