@@ -15,6 +15,7 @@ using v1.Repository.AuthRepository;
 using v1.Services.IService.IAuthService;
 using v1.Services.AuthService;
 using v1.Services.IService.IAuthInterface;
+using v1.Services.IService;
 
 namespace v1.DependencyInversion
 {
@@ -26,11 +27,12 @@ namespace v1.DependencyInversion
             // repositories ...
             services.AddTransient <IPublicInterface ,PublicRepository>();
             services.AddTransient<IApplicationUserInterface, ApplicationUserRepository>();
-
+            services.AddTransient<ICommonCollectionInterface, CommonCollectionRepository>();
 
             //services ...
             services.AddScoped<IAuthServiceInterface, AuthService>();
             services.AddScoped<ITokenServiceInterface, TokenService>();
+            services.AddScoped<ICommonCollectionServiceInterface, CommonCollectionService>();
 
 
             // Register Identity

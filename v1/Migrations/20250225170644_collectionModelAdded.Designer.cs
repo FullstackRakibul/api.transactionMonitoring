@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using v1.DbContexts;
 
@@ -11,9 +12,11 @@ using v1.DbContexts;
 namespace v1.Migrations
 {
     [DbContext(typeof(MonitoringAppDbContext))]
-    partial class MonitoringAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250225170644_collectionModelAdded")]
+    partial class collectionModelAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -284,7 +287,7 @@ namespace v1.Migrations
                     b.Property<string>("CreateBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DeleteAt")
+                    b.Property<DateTime>("DeleteAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeleteBy")
@@ -296,7 +299,7 @@ namespace v1.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdateAt")
+                    b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdateBy")
@@ -344,7 +347,7 @@ namespace v1.Migrations
                     b.Property<string>("CreateBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DeleteAt")
+                    b.Property<DateTime>("DeleteAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeleteBy")
@@ -374,7 +377,7 @@ namespace v1.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdateAt")
+                    b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdateBy")
@@ -400,7 +403,7 @@ namespace v1.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DeleteAt")
+                    b.Property<DateTime>("DeleteAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeleteBy")
@@ -419,7 +422,7 @@ namespace v1.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdateAt")
+                    b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdateBy")
