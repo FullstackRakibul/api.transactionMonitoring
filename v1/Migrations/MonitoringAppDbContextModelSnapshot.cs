@@ -309,6 +309,110 @@ namespace v1.Migrations
                     b.ToTable("BillDetails");
                 });
 
+            modelBuilder.Entity("v1.DbContexts.Models.CardDetails", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("BankName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CardDetailsName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CardHolderName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CardNumber")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("CardTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("Phone")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SignatureNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ValidMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ValidYear")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("CardTypeId");
+
+                    b.ToTable("CardDetails");
+                });
+
+            modelBuilder.Entity("v1.DbContexts.Models.CardType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CardTypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CardTypes");
+                });
+
+            modelBuilder.Entity("v1.DbContexts.Models.CommonArea", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CommonAreas");
+                });
+
             modelBuilder.Entity("v1.DbContexts.Models.CommonCollection", b =>
                 {
                     b.Property<Guid>("Id")
@@ -363,6 +467,9 @@ namespace v1.Migrations
                     b.Property<string>("Memo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("MerchangeBasicId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("MerchantName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -383,6 +490,136 @@ namespace v1.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CommonCollections");
+                });
+
+            modelBuilder.Entity("v1.DbContexts.Models.MerchantBasicDetails", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Area")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("MerchantTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("MerchantUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("VisitDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MerchantTypeId");
+
+                    b.HasIndex("MerchantUserId");
+
+                    b.ToTable("MerchantBasicDetails");
+                });
+
+            modelBuilder.Entity("v1.DbContexts.Models.MerchantRegistration", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AreaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CardDetailsId")
+                        .IsRequired()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MerchantDetailsId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AreaId");
+
+                    b.HasIndex("CardDetailsId");
+
+                    b.HasIndex("MerchantDetailsId");
+
+                    b.ToTable("MerchantRegistrations");
+                });
+
+            modelBuilder.Entity("v1.DbContexts.Models.MerchantType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MerchantTypes");
                 });
 
             modelBuilder.Entity("v1.DbContexts.Models.PublicData", b =>
@@ -490,6 +727,70 @@ namespace v1.Migrations
                         .IsRequired();
 
                     b.Navigation("CommonCollection");
+                });
+
+            modelBuilder.Entity("v1.DbContexts.Models.CardDetails", b =>
+                {
+                    b.HasOne("v1.DbContexts.AuthModels.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("v1.DbContexts.Models.CardType", "CardType")
+                        .WithMany()
+                        .HasForeignKey("CardTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CardType");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("v1.DbContexts.Models.MerchantBasicDetails", b =>
+                {
+                    b.HasOne("v1.DbContexts.Models.MerchantType", "MerchantType")
+                        .WithMany()
+                        .HasForeignKey("MerchantTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("v1.DbContexts.AuthModels.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("MerchantUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("MerchantType");
+                });
+
+            modelBuilder.Entity("v1.DbContexts.Models.MerchantRegistration", b =>
+                {
+                    b.HasOne("v1.DbContexts.Models.CommonArea", "CommonArea")
+                        .WithMany()
+                        .HasForeignKey("AreaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("v1.DbContexts.Models.CardDetails", "CardDetails")
+                        .WithMany()
+                        .HasForeignKey("CardDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("v1.DbContexts.Models.MerchantBasicDetails", "MerchantBasicDetails")
+                        .WithMany()
+                        .HasForeignKey("MerchantDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CardDetails");
+
+                    b.Navigation("CommonArea");
+
+                    b.Navigation("MerchantBasicDetails");
                 });
 
             modelBuilder.Entity("v1.DbContexts.Models.CommonCollection", b =>

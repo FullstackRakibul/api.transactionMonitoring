@@ -6,10 +6,9 @@ namespace v1.DbContexts.Models
     {
         [Key]
         public Guid Id { get; set; }
-
-        [Required]
         public string MerchantName { get; set; }
-
+        
+        public string? MerchangeBasicId { get; set; }
         [Required]
         public string InvoiceNumber { get; set; }
 

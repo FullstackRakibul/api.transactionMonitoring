@@ -31,7 +31,7 @@ namespace v1.Repository
         public async Task<CommonCollection?> GetByIdAsync(Guid id)
         {
             return await _context.CommonCollections
-                .Include(cc => cc.BillDetails)
+                .Include(cc => cc.BillDetails).Where(data=>data.IsDeleted==false)
                 .FirstOrDefaultAsync(cc => cc.Id == id);
         }
 

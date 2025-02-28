@@ -22,7 +22,7 @@ namespace v1.Repository
         public async Task<dynamic> GetPublicDataAsync()
         {
             var repoResponse = await _indigoAppDbContext.PublicData.ToListAsync();
-            return "API Works ...";
+            return repoResponse;
         }
     }
 }

@@ -39,9 +39,9 @@ namespace v1.Services
                 // TableOperationDetails
                 Status = 1,
                 CreateBy = createdBy,
-                CreateAt = DateTime.UtcNow,
+                CreateAt = DateTime.UtcNow.AddHours(6),
                 UpdateBy = createdBy,
-                UpdateAt = DateTime.UtcNow,
+                UpdateAt = DateTime.UtcNow.AddHours(6),
                 IsDeleted = false,
 
                 BillDetails = dto.BillDetails.Select(bd => new BillDetails
@@ -60,7 +60,7 @@ namespace v1.Services
         public async Task<List<CommonCollectionResponseDto>> GetAllAsync()
         {
             var collections = await _repository.GetAllAsync();
-            return collections.Select(MapToResponseDto).ToList();
+            return collections.Select(MapToResponseDto).Where(data=>data.IsDeleted is false).ToList();
         }
 
         public async Task<CommonCollectionResponseDto?> GetByIdAsync(Guid id)

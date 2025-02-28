@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
+using Microsoft.AspNetCore.Authorization;
 using v1.DbContexts.Models;
 using v1.DTOs;
 using v1.Repository.IRepository;
@@ -11,6 +12,7 @@ namespace v1.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class HomeController : Controller
     {
         // interface
