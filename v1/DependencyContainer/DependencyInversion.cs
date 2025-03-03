@@ -28,12 +28,12 @@ namespace v1.DependencyInversion
             services.AddTransient <IPublicInterface ,PublicRepository>();
             services.AddTransient<IApplicationUserInterface, ApplicationUserRepository>();
             services.AddTransient<ICommonCollectionInterface, CommonCollectionRepository>();
-
+            services.AddTransient<IMerchantTypeInterface, MerchantTypeRepository>();
             //services ...
             services.AddScoped<IAuthServiceInterface, AuthService>();
             services.AddScoped<ITokenServiceInterface, TokenService>();
             services.AddScoped<ICommonCollectionServiceInterface, CommonCollectionService>();
-
+            services.AddScoped<IMerchantTypeServiceInterface, MerchantTypeService>();
 
             // Register Identity
             services.AddIdentity<ApplicationUser, ApplicationRole>()
