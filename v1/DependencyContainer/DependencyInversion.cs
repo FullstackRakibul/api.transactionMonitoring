@@ -29,11 +29,15 @@ namespace v1.DependencyInversion
             services.AddTransient<IApplicationUserInterface, ApplicationUserRepository>();
             services.AddTransient<ICommonCollectionInterface, CommonCollectionRepository>();
             services.AddTransient<IMerchantTypeInterface, MerchantTypeRepository>();
+            services.AddTransient<ICardTypeInterface, CardTypeRepository>();
+
+
             //services ...
             services.AddScoped<IAuthServiceInterface, AuthService>();
             services.AddScoped<ITokenServiceInterface, TokenService>();
             services.AddScoped<ICommonCollectionServiceInterface, CommonCollectionService>();
             services.AddScoped<IMerchantTypeServiceInterface, MerchantTypeService>();
+            services.AddScoped<ICardTypeServiceInterface, CardTypeService>();
 
             // Register Identity
             services.AddIdentity<ApplicationUser, ApplicationRole>()

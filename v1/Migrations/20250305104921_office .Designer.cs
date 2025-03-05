@@ -12,8 +12,8 @@ using v1.DbContexts;
 namespace v1.Migrations
 {
     [DbContext(typeof(MonitoringAppDbContext))]
-    [Migration("20250228075346_merchantRegistrationModelaAdded")]
-    partial class merchantRegistrationModelaAdded
+    [Migration("20250305104921_office ")]
+    partial class office
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
