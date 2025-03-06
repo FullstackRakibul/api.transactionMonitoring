@@ -15,7 +15,7 @@ public class MerchantBasicService :IMerchantBasicServiceInterface
     
     
     // create merchant service 
-    public Task<MerchantDto> CreateAsync(MerchantDto dto, string createdBy)
+    public Task<MerchantBasicDetailsDto> CreateAsync(MerchantBasicDetailsDto dto, string createdBy)
     {
         throw new NotImplementedException();
     }

@@ -4,5 +4,5 @@ namespace v1.Services.IService;
 
 public interface IMerchantBasicServiceInterface
 {
-    Task<MerchantDto> CreateAsync(MerchantDto dto, string createdBy);
+    Task<MerchantBasicDetailsDto> CreateAsync(MerchantBasicDetailsDto dto, string createdBy);
 }

@@ -22,7 +22,7 @@ public class MerchantBasicRepository : IMerchantBasicInterface
         return merchantBasic;
     }
 
-    public Task<List<MerchantDto>> GetMerchantsAsync()
+    public Task<List<MerchantBasicDetailsDto>> GetMerchantsAsync()
     {
         throw new NotImplementedException();
     }
