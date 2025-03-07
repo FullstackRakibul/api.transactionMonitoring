@@ -21,7 +21,7 @@ namespace v1.Repository
 
         public async Task<CardType> GetByIdAsync(Guid id)
         {
-            return await _context.CardTypes.FindAsync(id);
+            return await _context.CardTypes.FirstOrDefaultAsync(ct => ct.Id == id);
         }
 
         public async Task<CardType> GetByNameAsync(string name)

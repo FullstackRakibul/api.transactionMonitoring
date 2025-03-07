@@ -53,7 +53,7 @@ namespace v1.Services
             
             foreach (var merchantDto in merchantDtos)
             {
-                var merchantType = await _merchantTypeRepository.GetByNameAsync(merchantDto.Type) 
+                var merchantType = await _merchantTypeRepository.GetByIdAsync(merchantDto.Type) 
                     ?? throw new ArgumentException($"Invalid merchant type: {merchantDto.Type}");
 
                 var merchant = new MerchantBasicDetails
@@ -86,10 +86,13 @@ namespace v1.Services
                 {
                     UserName = userVisitDto.Name,
                     PhoneNumber = userVisitDto.PhoneNumber,
-                    Email = $"{userVisitDto.Name.Replace(" ", "")}@example.com"
+                    Email = $"{userVisitDto.Name.Replace(" ", "")}@example.com",
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow,
+                    Status = 0
                 };
 
-                var result = await _userManager.CreateAsync(user, "DefaultPassword123!");
+                var result = await _userManager.CreateAsync(user, "p09oP)(O");
                 if (!result.Succeeded)
                 {
                     throw new InvalidOperationException($"User creation failed: {string.Join(", ", result.Errors)}");
@@ -111,7 +114,7 @@ namespace v1.Services
 
             foreach (var cardDto in cardDtos)
             {
-                var cardType = await _cardTypeRepository.GetByNameAsync(cardDto.Type) 
+                var cardType = await _cardTypeRepository.GetByIdAsync(cardDto.Type) 
                     ?? throw new ArgumentException($"Invalid card type: {cardDto.Type}");
 
                 var card = new CardDetails

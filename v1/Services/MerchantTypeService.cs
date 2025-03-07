@@ -52,7 +52,7 @@ public class MerchantTypeService :IMerchantTypeServiceInterface
 
     public async Task<Guid> GetMerchantTypeByIdAsync(Guid id)
     {
-        dynamic guid =  await _merchantTypeRepository.GetByIdAsync(id.ToString());
+        dynamic guid =  await _merchantTypeRepository.GetByIdAsync(id);
         return guid;
     }
     
