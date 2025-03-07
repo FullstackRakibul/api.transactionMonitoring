@@ -7,23 +7,22 @@ namespace v1.Repository;
 
 public class MerchantBasicRepository : IMerchantBasicInterface
 {
-    private readonly MonitoringAppDbContext _context;
+    private readonly MonitoringAppDbContext  _context;
 
     public MerchantBasicRepository(MonitoringAppDbContext context)
     {
         _context = context;
     }
-    
-    // create merchant 
-    public async Task<MerchantBasicDetails> CreateMerchantAsync(MerchantBasicDetails merchantBasic)
+
+    public async Task AddMerchantsAsync(List<MerchantBasicDetails> merchants)
     {
-        _context.MerchantBasicDetails.Add(merchantBasic);
+        await _context.MerchantBasicDetails.AddRangeAsync(merchants);
         await _context.SaveChangesAsync();
-        return merchantBasic;
     }
 
-    public Task<List<MerchantDto>> GetMerchantsAsync()
+    public async Task AddRegistrationAsync(MerchantRegistration registration)
     {
-        throw new NotImplementedException();
+        await _context.MerchantRegistrations.AddAsync(registration);
+        await _context.SaveChangesAsync();
     }
 }

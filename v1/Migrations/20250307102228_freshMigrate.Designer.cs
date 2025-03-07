@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using v1.DbContexts;
 
@@ -11,9 +12,11 @@ using v1.DbContexts;
 namespace v1.Migrations
 {
     [DbContext(typeof(MonitoringAppDbContext))]
-    partial class MonitoringAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250307102228_freshMigrate")]
+    partial class freshMigrate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -270,7 +273,6 @@ namespace v1.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("BillingAmount")
-                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("BillingMonth")
@@ -437,7 +439,6 @@ namespace v1.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("CollectedAmount")
-                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("CollectionDate")
@@ -520,7 +521,6 @@ namespace v1.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("DepositeMoney")
-                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("IsDeleted")
@@ -530,7 +530,8 @@ namespace v1.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("MerchantUserId")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -558,6 +559,8 @@ namespace v1.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("MerchantTypeId");
+
+                    b.HasIndex("MerchantUserId");
 
                     b.ToTable("MerchantBasicDetails");
                 });
@@ -766,6 +769,14 @@ namespace v1.Migrations
                         .HasForeignKey("MerchantTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("v1.DbContexts.AuthModels.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("MerchantUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("MerchantType");
                 });

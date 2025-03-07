@@ -6,5 +6,7 @@ namespace v1.Repository.IRepository.IAuthRepository
     {
         Task<bool> CreateUserAsync(ApplicationUser user, string password);
         Task<ApplicationUser> GetUserByEmailAsync(string email);
+        
+        Task<ApplicationUser> GetUserByIdAsync(string email);
     }
 }

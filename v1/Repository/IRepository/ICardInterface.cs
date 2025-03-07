@@ -4,10 +4,6 @@ namespace v1.Repository.IRepository;
 
 public interface ICardInterface
 {
-    Task<IEnumerable<CardType>> GetAllAsync();
-    Task<CardType> GetByIdAsync(Guid id);
-    Task<CardType> GetByNameAsync(string name);
-    Task AddAsync(CardType entity);
-    Task UpdateAsync(CardType entity);
-    Task DeleteAsync(Guid id);
+    //Task AddCardsAsync(CardDetails cards);
+    Task AddCardsAsync(List<CardDetails> cards);
 }

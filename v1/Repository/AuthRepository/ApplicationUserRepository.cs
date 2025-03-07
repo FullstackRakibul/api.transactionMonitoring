@@ -26,5 +26,10 @@ namespace v1.Repository.AuthRepository
         {
             return await _userManager.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
+
+        public async Task<ApplicationUser> GetUserByIdAsync(string Id)
+        {
+            return await _userManager.Users.FirstOrDefaultAsync(u => u.Id == Id);
+        }
     }
 }

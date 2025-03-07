@@ -12,8 +12,8 @@ using v1.DbContexts;
 namespace v1.Migrations
 {
     [DbContext(typeof(MonitoringAppDbContext))]
-    [Migration("20250228075346_merchantRegistrationModelaAdded")]
-    partial class merchantRegistrationModelaAdded
+    [Migration("20250307163502_UpdateBasicThreeMigrate")]
+    partial class UpdateBasicThreeMigrate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -179,6 +179,9 @@ namespace v1.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -270,6 +273,7 @@ namespace v1.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("BillingAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("BillingMonth")
@@ -436,6 +440,7 @@ namespace v1.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("CollectedAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("CollectionDate")
@@ -497,8 +502,9 @@ namespace v1.Migrations
 
             modelBuilder.Entity("v1.DbContexts.Models.MerchantBasicDetails", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Area")
                         .IsRequired()
@@ -516,6 +522,10 @@ namespace v1.Migrations
                     b.Property<string>("DeleteBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal?>("DepositeMoney")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -523,8 +533,7 @@ namespace v1.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("MerchantUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -553,8 +562,6 @@ namespace v1.Migrations
 
                     b.HasIndex("MerchantTypeId");
 
-                    b.HasIndex("MerchantUserId");
-
                     b.ToTable("MerchantBasicDetails");
                 });
 
@@ -564,11 +571,10 @@ namespace v1.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AreaId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid?>("CardDetailsId")
-                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreateAt")
@@ -583,12 +589,14 @@ namespace v1.Migrations
                     b.Property<string>("DeleteBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal?>("DepositCollection")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("MerchantDetailsId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid?>("MerchantDetailsId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -599,9 +607,12 @@ namespace v1.Migrations
                     b.Property<string>("UpdateBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateOnly?>("VisitDate")
+                        .HasColumnType("date");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("AreaId");
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CardDetailsId");
 
@@ -759,39 +770,26 @@ namespace v1.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("v1.DbContexts.AuthModels.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("MerchantUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
                     b.Navigation("MerchantType");
                 });
 
             modelBuilder.Entity("v1.DbContexts.Models.MerchantRegistration", b =>
                 {
-                    b.HasOne("v1.DbContexts.Models.CommonArea", "CommonArea")
+                    b.HasOne("v1.DbContexts.AuthModels.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("AreaId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ApplicationUserId");
 
                     b.HasOne("v1.DbContexts.Models.CardDetails", "CardDetails")
                         .WithMany()
-                        .HasForeignKey("CardDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CardDetailsId");
 
                     b.HasOne("v1.DbContexts.Models.MerchantBasicDetails", "MerchantBasicDetails")
                         .WithMany()
-                        .HasForeignKey("MerchantDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MerchantDetailsId");
+
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("CardDetails");
-
-                    b.Navigation("CommonArea");
 
                     b.Navigation("MerchantBasicDetails");
                 });

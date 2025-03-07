@@ -20,11 +20,11 @@ public class MerchantTypeRepository : IMerchantTypeInterface
         return await _context.MerchantTypes.ToListAsync();
     }
 
-    public async Task<MerchantType> GetByIdAsync(Guid id)
+    public async Task<dynamic> GetByIdAsync(string id)
     {
-        return await _context.MerchantTypes.FindAsync(id);
+        return await _context.MerchantTypes.FirstOrDefaultAsync(type=>type.Id.ToString()==id);
     }
-
+    
     public async Task<MerchantType> GetByNameAsync(string name)
     {
         return await _context.MerchantTypes.FirstOrDefaultAsync(mt => mt.Name == name);

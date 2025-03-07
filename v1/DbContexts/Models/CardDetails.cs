@@ -10,7 +10,7 @@ public class CardDetails : TableOperationDetails
     [Key]
     public Guid Id { get; set; }
     [Required]
-    public string ApplicationUserId { get; set; }
+    public string? ApplicationUserId { get; set; }
     public string CardDetailsName { get; set; }
     public string? BankName { get; set; }
     public string? CardHolderName { get; set; }
@@ -25,6 +25,7 @@ public class CardDetails : TableOperationDetails
     // Navigation Properties
     [ForeignKey(nameof(ApplicationUserId))]
     public ApplicationUser User { get; set; }
+    
     [ForeignKey(nameof(CardTypeId))]
     public CardType CardType { get; set; }
 }

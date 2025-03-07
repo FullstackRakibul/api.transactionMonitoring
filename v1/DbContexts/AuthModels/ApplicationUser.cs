@@ -11,6 +11,7 @@ namespace v1.DbContexts.AuthModels
         public DateTime? UpdatedAt { get; set; } = DateTime.UtcNow;
         public int Status { get; set; }
         public DateTime CreateAt { get; set; }
+        public string? CreateBy { get; set; }
         public string? UpdateBy { get; set; }
         public DateTime UpdateAt { get; set; }
         public string? DeleteBy { get; set; }

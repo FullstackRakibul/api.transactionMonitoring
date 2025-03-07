@@ -5,6 +5,6 @@ namespace v1.Repository.IRepository;
 
 public interface IMerchantBasicInterface
 {
-    Task<MerchantBasicDetails> CreateMerchantAsync(MerchantBasicDetails merchantBasic);
-    Task<List<MerchantDto>> GetMerchantsAsync();
+    Task AddMerchantsAsync(List<MerchantBasicDetails> merchants);
+    Task AddRegistrationAsync(MerchantRegistration registration);
 }

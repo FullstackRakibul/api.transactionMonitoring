@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.SignalR;
 using v1.DbContexts.Models;
 using v1.DTOs;
 using v1.Repository.IRepository;
@@ -47,6 +48,12 @@ public class MerchantTypeService :IMerchantTypeServiceInterface
             Id = t.Id,
             Name = t.Name
         });
+    }
+
+    public async Task<Guid> GetMerchantTypeByIdAsync(Guid id)
+    {
+        dynamic guid =  await _merchantTypeRepository.GetByIdAsync(id.ToString());
+        return guid;
     }
     
 }

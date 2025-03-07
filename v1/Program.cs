@@ -5,7 +5,7 @@ using Microsoft.OpenApi.Models;
 using v1.AuthHandler.Configuration;
 using v1.DbContexts;
 using v1.DbContexts.AuthModels;
-using v1.DependencyInversion;
+using v1.DependencyContainer;
 
 var builder = WebApplication.CreateBuilder(args);
 
