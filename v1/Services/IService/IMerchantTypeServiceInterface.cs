@@ -6,4 +6,5 @@ public interface IMerchantTypeServiceInterface
 {
     Task<MerchantTypeDto> CreateMerchantTypeAsync(MerchantTypeDto dto, string createdBy);
     Task<IEnumerable<MerchantTypeDto>> GetAllMerchantTypesAsync();
+    Task<MerchantTypeDto> GetMerchantTypeByIdAsync(Guid id);
 }

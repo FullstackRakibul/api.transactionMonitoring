@@ -41,5 +41,13 @@ public class MerchantTypeController : ControllerBase
         return Ok(result);
     }
     
+    // Get : api/merchanttype/id
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetMerchantTypeById(Guid id)
+    {
+        var response = await _merchantTypeServiceInterface.GetMerchantTypeByIdAsync(id);
+        return Ok(response);
+    }
+    
 }
 }

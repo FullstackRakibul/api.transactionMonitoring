@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using v1.DbContexts.AuthModels;
 using v1.DbContexts.Models;
 using v1.DTOs;
+using v1.Helper;
 using v1.Repository.IRepository;
 using v1.Services.IService;
 
@@ -47,14 +48,65 @@ namespace v1.Services
             await CreateRegistration(merchantRegistrationDto, merchants, cards, applicationUsers);
         }
 
+        // private async Task<List<MerchantBasicDetails>> CreateMerchants(List<MerchantDto> merchantDtos)
+        // {
+        //     var merchants = new List<MerchantBasicDetails>();
+        //     
+        //     foreach (var merchantDto in merchantDtos)
+        //     {
+        //         var merchantType = await _merchantTypeRepository.GetMerchantTypeByIdAsync(merchantDto.Type) 
+        //             ?? throw new ArgumentException($"Invalid merchant type: {merchantDto.Type}");
+        //
+        //         var merchant = new MerchantBasicDetails
+        //         {
+        //             Id = Guid.NewGuid(),
+        //             Name = merchantDto.Name,
+        //             Area = merchantDto.Area,
+        //             Phone = merchantDto.PhoneNumber,
+        //             MerchantTypeId = merchantType.Id,
+        //             Status = 1,
+        //             VisitDate = DateTime.Now,
+        //             CreateAt = DateTime.Now,
+        //             IsDeleted = false
+        //         };
+        //         merchants.Add(merchant);
+        //     }
+        //     
+        //     await _merchantRepository.AddMerchantsAsync(merchants);
+        //     return merchants;
+        // }
+
         private async Task<List<MerchantBasicDetails>> CreateMerchants(List<MerchantDto> merchantDtos)
         {
             var merchants = new List<MerchantBasicDetails>();
-            
+    
             foreach (var merchantDto in merchantDtos)
             {
-                var merchantType = await _merchantTypeRepository.GetByIdAsync(merchantDto.Type) 
-                    ?? throw new ArgumentException($"Invalid merchant type: {merchantDto.Type}");
+                // 1. Create ApplicationUser first
+                var user = new ApplicationUser
+                {
+                    UserName = AuthUserHelper.GenerateValidUsername(merchantDto.Name),
+                    Email = AuthUserHelper.GenerateValidEmail(merchantDto.Name, merchantDto.PhoneNumber),
+                    Name = merchantDto.Name.Trim(),
+                    PhoneNumber = merchantDto.PhoneNumber,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow,
+                    Status = 1
+                };
+
+                // 2. Create user with generated password
+                var password = "p09oP)(O";
+                var userResult = await _userManager.CreateAsync(user, password);
+        
+                if (!userResult.Succeeded)
+                {
+                    throw new InvalidOperationException(
+                        $"User creation failed: {string.Join(", ", userResult.Errors)}");
+                }
+
+                // 3. Create merchant with user reference
+                var merchantType = await _merchantTypeRepository.GetMerchantTypeByIdAsync(merchantDto.Type) 
+                                   ?? throw new ArgumentException($"Invalid merchant type: {merchantDto.Type}");
 
                 var merchant = new MerchantBasicDetails
                 {
@@ -63,19 +115,22 @@ namespace v1.Services
                     Area = merchantDto.Area,
                     Phone = merchantDto.PhoneNumber,
                     MerchantTypeId = merchantType.Id,
+                    MerchantUserId = user.Id, // Link to the created user
                     Status = 1,
-                    VisitDate = DateTime.Now,
-                    CreateAt = DateTime.Now,
+                    VisitDate = DateTime.UtcNow,
+                    CreateAt = DateTime.UtcNow,
                     IsDeleted = false
                 };
-                
+        
                 merchants.Add(merchant);
             }
-            
+    
+            // 4. Save all merchants
             await _merchantRepository.AddMerchantsAsync(merchants);
             return merchants;
         }
-
+        
+        
         private async Task<List<ApplicationUser>> CreateApplicationUsers(List<UserVisitDto> userVisitDtos)
         {
             var applicationUsers = new List<ApplicationUser>();
@@ -84,9 +139,10 @@ namespace v1.Services
             {
                 var user = new ApplicationUser
                 {
-                    UserName = userVisitDto.Name,
+                    UserName = AuthUserHelper.GenerateValidUsername(userVisitDto.Name),
+                    Email = AuthUserHelper.GenerateValidEmail(userVisitDto.Name, userVisitDto.PhoneNumber),
+                    Name = userVisitDto.Name.Trim(),
                     PhoneNumber = userVisitDto.PhoneNumber,
-                    Email = $"{userVisitDto.Name.Replace(" ", "")}@example.com",
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
                     Status = 0
@@ -95,7 +151,7 @@ namespace v1.Services
                 var result = await _userManager.CreateAsync(user, "p09oP)(O");
                 if (!result.Succeeded)
                 {
-                    throw new InvalidOperationException($"User creation failed: {string.Join(", ", result.Errors)}");
+                    throw new InvalidOperationException($"User creation failed in registration : {string.Join(", ", result.Errors)}");
                 }
                 
                 applicationUsers.Add(user);

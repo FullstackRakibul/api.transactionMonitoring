@@ -2,46 +2,60 @@
   "merchants": [
     {
       "type": "abb1481b-8c74-4a93-8a31-1a0d2ff86dae",
-      "name": "test Marchent",
-      "area": "Dahak",
-      "phoneNumber": "01700000000"
-    },
-    {
-      "type": "50917bf1-26fc-4fbc-89a9-807405d5db1a",
-      "name": "test Merchant Tow",
-      "area": "Banasree",
-      "phoneNumber": "01800000000"
+      "name": "Mohammad Ali",
+      "area": "Rongpur",
+      "phoneNumber": "01500000000"
     }
   ],
   "userVisits": [
     {
-      "name": "Fresh Merchant One",
-      "type" : "e0df4881-6d1b-40f5-aed2-9f42c67e58a8",
-      "area": "Dhaka",
-      "phoneNumber": "01848562145"
+      "name": "Maruf",
+      "area": "Rongpur",
+      "phoneNumber": "01700000000"
     }
   ],
-  "checkCollection": "5000",
+  "checkCollection": "45000",
   "visitDate": "2025-03-07T06:27:35.067Z",
   "cards": [
     {
-      "type": "dc09029d-bfa2-4f58-b67b-ee4a9a8d4386",
-      "cardholderName": "JHDU5465HF",
-      "phoneNumber": "01700000000"
-    },
-    {
       "type": "1dff47f9-a364-425c-8e78-72ff683463ff",
-      "cardholderName": "KFRUIJ5856HFGK",
-      "phoneNumber": "0178585275"
+      "cardholderName": "Safif Ahmed",
+      "phoneNumber": "01700000000"
     }
   ]
+}
+,
+
+{
+"merchants": [
+{
+"type": "emi",
+"name": "Anish",
+"area": "Barisal",
+"phoneNumber": "01700000000"
+}
+],
+"userVisits": [
+{
+"merchantName": "Dipak ",
+"area": "Saiyadpur",
+"phoneNumber": "017000000"
+}
+],
+"checkCollection": "70000",
+"visitDate": "2025-03-07T06:27:35.067Z",
+"cards": [
+{
+"type": "1dff47f9-a364-425c-8e78-72ff683463ff",
+"cardholderName": "Rafiq",
+"phoneNumber": "01700000000"
+}
+]
 }
 
 
 
 ,
-
-
 
 {
 "merchants": [

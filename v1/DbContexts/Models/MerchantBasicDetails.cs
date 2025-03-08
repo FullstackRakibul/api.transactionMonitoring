@@ -25,6 +25,8 @@ public class MerchantBasicDetails : TableOperationDetails
 
     [ForeignKey(nameof(MerchantTypeId))]
     public MerchantType MerchantType { get; set; }
+    
+    public string? MerchantUserId { get; set; } 
 }
 
 

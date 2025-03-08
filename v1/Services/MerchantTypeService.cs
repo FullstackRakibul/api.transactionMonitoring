@@ -50,10 +50,17 @@ public class MerchantTypeService :IMerchantTypeServiceInterface
         });
     }
 
-    public async Task<Guid> GetMerchantTypeByIdAsync(Guid id)
+    public async Task<MerchantTypeDto> GetMerchantTypeByIdAsync(Guid id)
     {
-        dynamic guid =  await _merchantTypeRepository.GetByIdAsync(id);
-        return guid;
+        var response =  await _merchantTypeRepository.GetMerchantTypeByIdAsync(id);
+        if (response == null)
+           throw new Exception("Merchant Type not found.");
+
+        return new MerchantTypeDto 
+        {
+            Id = response.Id,
+            Name = response.Name
+        };
     }
     
 }
