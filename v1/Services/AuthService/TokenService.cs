@@ -20,14 +20,17 @@ namespace SmartMonitoringApp.Services
             _configuration = configuration;
         }
 
-        public async Task<string> GenerateJwtTokenAsync(ApplicationUser user)
+        public async Task<string> GenerateJwtTokenAsync(ApplicationUser user )
         {
+            var role = new IdentityRole();
 
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id),
                 new Claim(CustomClaims.Name, user.Name ?? string.Empty),
-                new Claim(CustomClaims.Region, user.Region ?? string.Empty)
+                new Claim(CustomClaims.Region, user.Region ?? string.Empty),
+                new Claim (CustomClaims.Email,user.Email?? string.Empty),
+                new Claim (CustomClaims.Role,role.Name?? string.Empty),
             };
 
             // Add Role if available

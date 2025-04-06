@@ -31,7 +31,9 @@ namespace v1.DependencyContainer
             services.AddTransient<IMerchantTypeInterface, MerchantTypeRepository>();
             services.AddTransient<ICardInterface, CardRepository>();
             services.AddTransient<ICardTypeInterface, CardTypeRepository>();
-                
+            services.AddTransient<IAdminDashboardInterface , AdminDashboardRepository>();
+            
+            
             //services ...
             services.AddScoped<IAuthServiceInterface, AuthService>();
             services.AddScoped<ITokenServiceInterface, TokenService>();
@@ -41,7 +43,7 @@ namespace v1.DependencyContainer
             services.AddScoped<ICardInterface, CardRepository>();
             services.AddScoped<ICardTypeServiceInterface, CardTypeService>();
             services.AddScoped<IMerchantRegistrationServiceInterface, MerchantRegistrationService>();
-
+            services.AddScoped<IAdminDashBoardServiceInterface,AdminDashBoardService>();
             // Register Identity
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<MonitoringAppDbContext>()

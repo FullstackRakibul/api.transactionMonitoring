@@ -24,6 +24,7 @@ namespace v1.Services
             {
                 Id = Guid.NewGuid(),
                 MerchantName = dto.MerchantName,
+                MerchangeBasicId = dto.MerchantUserId,
                 InvoiceNumber = dto.InvoiceNumber,
                 CollectionDate = dto.CollectionDate,
                 CollectedAmount = dto.CollectedAmount,

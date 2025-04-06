@@ -3,6 +3,7 @@
     public class CreateCommonCollectionDto
     {
         public string MerchantName { get; set; }
+        public string MerchantUserId { get; set; }
         public string InvoiceNumber { get; set; }
         public DateTime CollectionDate { get; set; }
         public decimal CollectedAmount { get; set; }

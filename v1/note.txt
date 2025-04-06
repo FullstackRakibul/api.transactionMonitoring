@@ -1,0 +1,10 @@
+
+
+//"DefaultDatabase": "Data Source=RAKIBUL-IT\\LOCALSERVER;Initial Catalog=smartmonitoringAppdb;Integrated Security=True;TrustServerCertificate=True;"
+   // "DefaultDatabase": "Server=localhost; Database=smartmonitoringAppdb; User Id=sa; Password=w23eW@#E; TrustServerCertificate=True;",
+   
+   
+   "applicationUrl": "http://localhost:5042",
+   "applicationUrl": "http://localhost:35520",
+         "sslPort": 0
+   

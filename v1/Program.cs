@@ -1,6 +1,9 @@
+using System.Formats.Asn1;
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using v1.AuthHandler.Configuration;
 using v1.DbContexts;
@@ -21,7 +24,26 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultDatabase"
 // Register controllers & minimal APIs
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Configuration.AddEnvironmentVariables();
+string jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET")
+                   ?? builder.Configuration["JwtSettings:Secret"]
+                   ?? throw new Exception("JWT secret not configured.");
 
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+            ValidAudience = builder.Configuration["JwtSettings:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret))
+        };
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 //builder.Services.AddSwaggerGen();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -79,11 +101,26 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dev v1");
+    });
 }
 
 
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+ApplyMigration();
 app.Run();
+
+void ApplyMigration()
+{
+    using var scope = app.Services.CreateScope();
+    var _db = scope.ServiceProvider.GetRequiredService<MonitoringAppDbContext>();
+
+    if (_db.Database.GetPendingMigrations().Any())
+    {
+        _db.Database.Migrate();
+    }
+}
